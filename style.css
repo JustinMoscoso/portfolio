@@ -1,0 +1,120 @@
+/* ========== Global ========== */
+body,
+body.landing-page {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+/* ========== Navbar ========== */
+.navbar {
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  padding: 10px 20px;
+  border-radius: 0 0 15px 15px;
+}
+
+.navbar-brand img.logo-img {
+  height: 80px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand img.logo-img:hover {
+  transform: scale(1.08);
+}
+
+.navbar .nav-link {
+  color: #ffffff;
+  margin-left: 15px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #0d6efd;
+  font-weight: bold;
+  border-bottom: 2px solid #0d6efd;
+}
+
+/* ========== Hero Section ========== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(to right, #000000cc, #000000aa),
+              url('https://images.unsplash.com/photo-1547658719-da2b51169166') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.hero-cover {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.hero h1,
+.hero h2,
+.hero p,
+.hero ul {
+  color: white;
+}
+
+.hero ul {
+  text-align: left;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+/* ========== Cover Letter Section ========== */
+.cover-letter-section {
+  background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 0;
+  min-height: 100vh;
+}
+
+.cover-letter-section ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+/* ========== Card Styles ========== */
+.card.bg-dark {
+  background-color: #1e1e1e;
+  border: none;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.card.bg-dark:hover {
+  transform: scale(1.03);
+}
+
+/* ========== Button Hover Effect ========== */
+.btn-outline-light:hover,
+.btn.btn-light:hover {
+  background-color: #ffffff;
+  color: #000000;
+  transition: 0.3s ease;
+}
+
+/* ========== Footer ========== */
+footer {
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}

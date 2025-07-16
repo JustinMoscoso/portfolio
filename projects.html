@@ -1,98 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Projects</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-    }
-    .hero {
-      padding: 100px 0 40px;
-      background: linear-gradient(to right, #000000cc, #000000aa), url('https://images.unsplash.com/photo-1547658719-da2b51169166') center/cover no-repeat;
-    }
-    .card-img-top {
-      height: 180px;
-      object-fit: contain;
-      background-color: #1e1e1e;
-    }
-    .card {
-      height: 100%;
-    }
-    .card-body {
-      padding-bottom: 2rem;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Projects - Justin Moscoso</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<!-- ✅ Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">
-      <img src="img/logo.jpg" alt="Logo" class="logo-img" style="height: 50px; border-radius: 50%;">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="projects.html">Projects</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- ✅ Hero + Projects Combined -->
-<section class="hero text-center text-white">
-  <div class="container">
-    <h1 class="display-5 mb-3">My Projects</h1>
-    <p class="lead mb-5">Here are some of the projects I've worked on</p>
-
-    <div class="row">
-      <!-- Sari Sari Store -->
-      <div class="col-md-6 mb-4">
-        <div class="card bg-dark text-white shadow border-0 h-100">
-          <img src="img/sarisari.jpg" class="card-img-top" alt="Sari Sari Store">
-          <div class="card-body">
-            <h5 class="card-title">Sari Sari Store</h5>
-            <p class="card-text">
-              A user-friendly inventory and sales tracking app designed for small sari-sari store owners in the Philippines. It allows users to manage products, monitor stock, and generate reports via a simple mobile interface.
-            </p>
-            <a href="#" class="btn btn-outline-light">View Project</a>
-          </div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="logo-text">Justin Moscoso</span>
+            </a>
+            <button class="navbar-toggler" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
+    </nav>
 
-      <!-- School Finder -->
-      <div class="col-md-6 mb-4">
-        <div class="card bg-dark text-white shadow border-0 h-100">
-          <img src="img/SchoolHunt.png" class="card-img-top" alt="School Finder">
-          <div class="card-body">
-            <h5 class="card-title">School Finder</h5>
-            <p class="card-text">
-              A responsive web application that helps users find schools based on location, tuition, and programs. It features map integration, search filters, and detailed school info for easy exploration.
-            </p>
-            <a href="#" class="btn btn-outline-light">View Project</a>
-          </div>
+    <!-- Projects Section -->
+    <section class="projects-page-section">
+        <div class="container">
+            <h1 class="section-heading">My Projects</h1>
+            <p class="section-subheading">A showcase of my work, demonstrating my full-stack capabilities.</p>
+            <div class="project-grid">
+                <!-- Project 1: Sari Sari Store -->
+                <div class="project-card">
+                    <img src="img/sarisari.jpg" alt="Sari Sari Store App" class="project-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Sari Sari Store Inventory</h3>
+                        <p class="card-description">
+                            A mobile-first inventory and sales tracking application for small businesses, built with PHP and JavaScript. Features include product management, stock monitoring, and sales reporting.
+                        </p>
+                        <a href="https://justinmoscoso.github.io/SariSariStoreSchool/" class="btn btn-outline">View Project</a>
+                    </div>
+                </div>
+                <!-- Project 2: School Finder -->
+                <div class="project-card">
+                    <img src="img/SchoolHunt.png" alt="School Finder Web App" class="project-img">
+                    <div class="card-content">
+                        <h3 class="card-title">School Finder Web App</h3>
+                        <p class="card-description">
+                            A responsive web application to help users find schools based on various criteria like location, tuition, and programs. Implemented with C# backend and a dynamic JavaScript frontend.
+                        </p>
+                        <a href="#" class="btn btn-outline">View Project</a>
+                    </div>
+                  </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ✅ Footer -->
-<footer class="bg-dark text-white text-center py-3">
-  <p class="mb-0">&copy; 2025 Justin Moscoso. All rights reserved.</p>
-</footer>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Justin Moscoso. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.credly.com/users/justin-moscoso/badges#credly" target="_blank">Badges</a>
+                <a href="https://github.com/JustinMoscoso" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </footer>
 
-<!-- ✅ Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

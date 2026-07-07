@@ -6,31 +6,35 @@ import { motion } from "framer-motion";
 const CERTIFICATIONS_DATA = [
   {
     id: 1,
-    title: "Responsive Web Design",
-    issuer: "freeCodeCamp",
-    date: "June 2026",
-    credential: "#",
+    title: "Introduction to Programming With C#",
+    issuer: "Coursera",
+    logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
+    date: "June 2025",
+    credential: "https://coursera.org/share/3c285ab15e583648a90bd35fa107b37b",
   },
   {
     id: 2,
-    title: "JavaScript Algorithms and Data Structures",
-    issuer: "freeCodeCamp",
-    date: "May 2026",
-    credential: "#",
+    title: "Virtualization for Everyone",
+    issuer: "Coursera",
+    logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
+    date: "Jan 2026",
+    credential: "https://coursera.org/share/5fb646ae424b0f20c701fb91713aaa87",
   },
   {
     id: 3,
-    title: "Introduction to Cybersecurity",
-    issuer: "Cisco Networking Academy",
-    date: "April 2026",
-    credential: "#",
+    title: "Advanced Networking, Virtualization, and Security",
+    issuer: "Coursera",
+    logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
+    date: "Jan 2026",
+    credential: "https://coursera.org/share/9fb088ec99503b1db6b71f95324d2b84",
   },
   {
     id: 4,
-    title: "Google UX Design",
-    issuer: "Coursera",
-    date: "February 2026",
-    credential: "#",
+    title: "Ethical Hacker",
+    issuer: "Cisco",
+    logo: "https://unpkg.com/simple-icons@v13/icons/cisco.svg",
+    date: "March 2025",
+    credential: "https://www.credly.com/badges/785a0a63-6f39-4b7d-833f-7ce47009b471/public_url",
   },
 ];
 
@@ -110,12 +114,26 @@ function Certifications() {
                 justify-between
                 gap-6
                 w-full
+                group
               "
             >
               {/* Top Content Area */}
-              <div className="flex flex-col gap-5 text-left items-start">
-                <div className="bg-zinc-100 border border-zinc-200 p-3.5 rounded-xl text-zinc-600 w-fit">
-                  <Award size={26} />
+              <div className="flex flex-col gap-5 text-left items-start w-full">
+                
+                {/* Logo & Icon Row */}
+                <div className="flex items-center justify-between w-full">
+                  <div className="bg-zinc-100 border border-zinc-200 p-3.5 rounded-xl text-zinc-600 w-fit">
+                    <Award size={26} />
+                  </div>
+                  
+                  {/* Issuer Logo Container */}
+                  <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-50 rounded-lg border border-zinc-100">
+                    <img 
+                      src={certificate.logo} 
+                      alt={`${certificate.issuer} logo`} 
+                      className="max-h-full max-w-full object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2 w-full">

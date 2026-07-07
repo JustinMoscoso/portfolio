@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Award, ExternalLink, Calendar } from "lucide-react";
-// 1. Import motion from framer-motion
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 
 const CERTIFICATIONS_DATA = [
   {
@@ -38,33 +37,51 @@ const CERTIFICATIONS_DATA = [
   },
 ];
 
-// 2. Define the animation settings (Variants) for the stagger effect
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15, // Spaced timing out so cards animate one after another
+      staggerChildren: 0.15,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 }, // Start 30px lower and invisible
+  hidden: { opacity: 0, x: 50 },
   visible: { 
     opacity: 1, 
-    y: 0, 
-    transition: { type: "spring", stiffness: 100, damping: 15 } // Snappy, clean spring ease
+    x: 0, 
+    transition: { type: "spring", stiffness: 100, damping: 15 } 
   },
 };
 
 function Certifications() {
+  const carouselRef = useRef(null);
+  const [width, setWidth] = useState(0);
+  
+  // Track the raw X coordinate of the drag track
+  const dragX = useMotionValue(0);
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
+    }
+  }, []);
+
+  // 1. Edge-fade indicators: Fade out the gradient overlay dynamically as the user nears the end
+  // When dragX is 0 (start), opacity is 1. When dragX hits the maximum negative width (end), opacity drops to 0.
+  const rightGradientOpacity = useTransform(dragX, [-width, -width + 100, 0], [0, 1, 1]);
+
+  // 2. Custom Progress Bar Indicator calculations
+  const progressX = useTransform(dragX, [0, -width], ["0%", "100%"]);
+
   return (
     <section 
       id="certifications" 
-      className="bg-zinc-50 text-zinc-800 w-full flex flex-col items-start justify-start text-left py-24"
+      className="bg-zinc-50 text-zinc-800 w-full flex flex-col items-start justify-start text-left py-24 overflow-hidden"
     >
-      <div className="max-w-6xl w-full ml-0 px-6">
+      <div className="max-w-6xl w-full ml-0 px-6 relative">
 
         {/* Header Container */}
         <div className="text-left mb-16 max-w-2xl">
@@ -78,114 +95,147 @@ function Certifications() {
 
           <p className="text-zinc-600 mt-5 leading-8">
             Continuous learning is an important part of my journey as a
-            developer. Here are some certifications I've earned while expanding
-            my technical skills and staying up to date with modern technologies.
+            developer. Drag or swipe to see some certifications I've earned while expanding
+            my technical skills.
           </p>
         </div>
 
-        {/* 3. Changed this wrapper to a motion.div to control scroll properties */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }} // Animates when 15% of the section enters the screen
-        >
-          {CERTIFICATIONS_DATA.map((certificate) => (
-            /* 4. Converted child cards to motion.div elements */
+        {/* Carousel Container Wrapper */}
+        <div className="relative w-full">
+          
+          {/* Dynamic Fading Right Edge Indicator Overlay */}
+          {width > 0 && (
+            <motion.div 
+              style={{ opacity: rightGradientOpacity }}
+              className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-zinc-50 via-zinc-50/70 to-transparent z-10 pointer-events-none hidden md:block"
+            />
+          )}
+
+          {/* Carousel Window */}
+          <motion.div 
+            ref={carouselRef} 
+            className="cursor-grab active:cursor-grabbing overflow-hidden w-full"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            {/* Inner Draggable Track */}
             <motion.div
-              key={certificate.id}
-              variants={cardVariants}
-              className="
-                bg-white
-                border
-                border-zinc-200
-                rounded-2xl
-                p-6
-                md:p-7
-                shadow-sm
-                hover:shadow-xl
-                hover:border-indigo-500/50
-                transition-all
-                duration-300
-                hover:-translate-y-1.5
-                flex
-                flex-col
-                justify-between
-                gap-6
-                w-full
-                group
-              "
+              drag="x"
+              dragConstraints={{ right: 0, left: -width }}
+              style={{ x: dragX }} // Binds motion values
+              whileDrag={{ scale: 0.98 }}
+              className="flex gap-6 w-max pb-6 pr-24 md:pr-0" // Extra padding on right so last card doesn't get cut off during drag
             >
-              {/* Top Content Area */}
-              <div className="flex flex-col gap-5 text-left items-start w-full">
-                
-                {/* Logo & Icon Row */}
-                <div className="flex items-center justify-between w-full">
-                  <div className="bg-zinc-100 border border-zinc-200 p-3.5 rounded-xl text-zinc-600 w-fit">
-                    <Award size={26} />
-                  </div>
-                  
-                  {/* Issuer Logo Container */}
-                  <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-50 rounded-lg border border-zinc-100">
-                    <img 
-                      src={certificate.logo} 
-                      alt={`${certificate.issuer} logo`} 
-                      className="max-h-full max-w-full object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2 w-full">
-                  <h3 className="text-xl font-bold text-zinc-900 leading-snug min-h-[64px] line-clamp-3 text-left">
-                    {certificate.title}
-                  </h3>
-
-                  <p className="text-zinc-600 font-medium text-sm text-left">
-                    {certificate.issuer}
-                  </p>
-
-                  <div className="flex items-center gap-1.5 pt-1 text-xs font-medium text-zinc-400 justify-start">
-                    <Calendar size={14} />
-                    {certificate.date}
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Action Area */}
-              <div className="pt-3 border-t border-zinc-100 mt-auto w-full">
-                <a
-                  href={certificate.credential}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {CERTIFICATIONS_DATA.map((certificate) => (
+                <motion.div
+                  key={certificate.id}
+                  variants={cardVariants}
                   className="
-                    inline-flex
-                    items-center
-                    justify-between
-                    w-full
-                    px-4
-                    py-3
-                    rounded-xl
+                    bg-white
                     border
                     border-zinc-200
-                    text-zinc-700
-                    text-sm
-                    font-semibold
-                    bg-zinc-50
-                    hover:bg-indigo-600
-                    hover:text-white
-                    hover:border-indigo-600
+                    rounded-2xl
+                    p-6
+                    md:p-7
+                    shadow-sm
+                    hover:shadow-xl
+                    hover:border-indigo-500/50
                     transition-all
                     duration-300
+                    hover:-translate-y-1.5
+                    flex
+                    flex-col
+                    justify-between
+                    gap-6
+                    w-[290px] sm:w-[320px] md:w-[350px] select-none
+                    group
                   "
                 >
-                  View Certificate
-                  <ExternalLink size={16} />
-                </a>
-              </div>
+                  {/* Top Content Area */}
+                  <div className="flex flex-col gap-5 text-left items-start w-full">
+                    
+                    {/* Logo & Icon Row */}
+                    <div className="flex items-center justify-between w-full">
+                      <div className="bg-zinc-100 border border-zinc-200 p-3.5 rounded-xl text-zinc-600 w-fit">
+                        <Award size={26} />
+                      </div>
+                      
+                      {/* Issuer Logo Container */}
+                      <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-50 rounded-lg border border-zinc-100">
+                        <img 
+                          src={certificate.logo} 
+                          alt={`${certificate.issuer} logo`} 
+                          draggable="false"
+                          className="max-h-full max-w-full object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 w-full">
+                      <h3 className="text-xl font-bold text-zinc-900 leading-snug min-h-[64px] line-clamp-3 text-left">
+                        {certificate.title}
+                      </h3>
+
+                      <p className="text-zinc-600 font-medium text-sm text-left">
+                        {certificate.issuer}
+                      </p>
+
+                      <div className="flex items-center gap-1.5 pt-1 text-xs font-medium text-zinc-400 justify-start">
+                        <Calendar size={14} />
+                        {certificate.date}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Action Area */}
+                  <div className="pt-3 border-t border-zinc-100 mt-auto w-full">
+                    <a
+                      href={certificate.credential}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="
+                        inline-flex
+                        items-center
+                        justify-between
+                        w-full
+                        px-4
+                        py-3
+                        rounded-xl
+                        border
+                        border-zinc-200
+                        text-zinc-700
+                        text-sm
+                        font-semibold
+                        bg-zinc-50
+                        hover:bg-indigo-600
+                        hover:text-white
+                        hover:border-indigo-600
+                        transition-all
+                        duration-300
+                      "
+                    >
+                      View Certificate
+                      <ExternalLink size={16} />
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Custom Track Progress Indicator Bar */}
+        {width > 0 && (
+          <div className="mt-6 w-32 h-1 bg-zinc-200 rounded-full overflow-hidden relative">
+            <motion.div 
+              style={{ left: progressX }}
+              className="absolute top-0 bottom-0 w-1/2 bg-indigo-600 rounded-full transition-shadow duration-150"
+            />
+          </div>
+        )}
 
       </div>
     </section>

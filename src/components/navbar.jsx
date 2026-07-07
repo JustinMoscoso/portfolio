@@ -17,7 +17,7 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navItems = [
-    { name: "Home", href: "#home", icon: <Home size={18} /> },
+    { name: "Home", href: "/home", icon: <Home size={18} /> },
     { name: "About", href: "#about", icon: <User size={18} /> },
     { name: "Skills", href: "#skills", icon: <Code2 size={18} /> },
     { name: "Projects", href: "#projects", icon: <Folder size={18} /> },
@@ -28,8 +28,8 @@ function Navbar() {
   { name: "Typing Test", href: "/typing-test", icon: <Code2 size={18} /> },
   { name: "Shop", href: "#shop", icon: <ShoppingBag size={18} /> },
   { name: "Blog", href: "#blog", icon: <BookOpen size={18} /> },
-  { name: "Experience", href: "#experience", icon: <Briefcase size={18} /> },
-];
+  { name: "Experience", href: "/Experience", icon: <Briefcase size={18} /> },
+]; 
 
   return (
     <>

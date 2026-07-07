@@ -6,7 +6,17 @@ import Navbar from "../components/navbar";
 import Hero from "../components/hero";
 import Projects from "../components/project";
 import Certifications from "../components/Certifications";
-import Contact from "../components/Contact";
+
+import {
+  Briefcase,
+  GraduationCap,
+  Shield,
+} from "lucide-react";
+import {
+  containerVariants,
+  cardVariants,
+  badgeVariants,
+} from "../utils/animation";
 
 function Home() {
   // 1. Track window scroll progress for the top bar
@@ -103,10 +113,17 @@ function Home() {
 
       {/* Added clear overflow control and smooth scrolling structure */}
       <main className="lg:ml-72 pt-16 lg:pt-0 overflow-x-hidden min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+        <motion.div
+         className="max-w-6xl mx-auto px-6"
+         initial={{ opacity: 0, y: 30 }}
+         whileInView={{ opacity: 1, y: 0 }}
+         viewport={{ once: true }}
+         transition={{ duration: 0.7 }}
+       ></motion.div>
         <Hero />
         <Projects />
         <Certifications />
-        <Contact />
+       
       </main>
     </>
   );

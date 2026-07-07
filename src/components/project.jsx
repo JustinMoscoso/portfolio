@@ -2,7 +2,7 @@ import React from "react";
 // 1. Import motion from framer-motion
 import { motion } from "framer-motion";
 import gabaiImg from "../assets/Gabai.png";
-import websiteNgBinanImg from "../assets/WebsiteNgBinan.png";
+import websiteNgBinanImg from "../assets/websitengBinan.png";
 import EncryptionImg from "../assets/Encryption.png";
 const PROJECTS_DATA = [
   {

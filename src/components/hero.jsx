@@ -19,31 +19,15 @@ function Hero() {
             </p>
 
             <h1 className="text-5xl md:text-7xl font-bold leading-tight text-olive-950">
-  <TypeAnimation
-    sequence={[
-      "Justin",
-      2000,
-      "Full Stack Developer",
-      2000,
-      "Android Developer",
-      2000,
-      "React Developer",
-      2000,
-      "PHP Developer",
-      2000,
-    ]}
-    wrapper="span"
-    speed={50}
-    repeat={Infinity}
-  />
+  Justin
 </h1>
 
 
 
             <p className="text-stone-900 mt-6 leading-8 max-w-xl">
               I build responsive web applications, Android apps, and
-              management systems using React, PHP, Laravel, Kotlin,
-              MySQL, and Supabase.
+              management systems using React, PHP, CodeIgniter, Kotlin,
+              MySQL, Python, C#, Javascript, Assembly and Supabase.
             </p>
 
             {/* Buttons */}

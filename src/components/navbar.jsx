@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Home,
   User,
@@ -23,11 +24,12 @@ function Navbar() {
     { name: "Contact", href: "#contact", icon: <Mail size={18} /> },
   ];
 
-  const extraItems = [
-    { name: "Shop", href: "#shop", icon: <ShoppingBag size={18} /> },
-    { name: "Blog", href: "#blog", icon: <BookOpen size={18} /> },
-    { name: "Experience", href: "#experience", icon: <Briefcase size={18} /> },
-  ];
+ const extraItems = [
+  { name: "Typing Test", href: "/typing-test", icon: <Code2 size={18} /> },
+  { name: "Shop", href: "#shop", icon: <ShoppingBag size={18} /> },
+  { name: "Blog", href: "#blog", icon: <BookOpen size={18} /> },
+  { name: "Experience", href: "#experience", icon: <Briefcase size={18} /> },
+];
 
   return (
     <>

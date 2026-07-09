@@ -63,7 +63,7 @@ function Experience() {
     <Navbar />
     <section
       id="experience"
-      className="min-h-screen lg:ml-72 bg-stone-50 py-24"
+      className="min-h-screen  bg-stone-50 pt-10"
     >
       <motion.div
   className="max-w-6xl mx-auto px-6"

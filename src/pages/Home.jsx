@@ -6,7 +6,7 @@ import Navbar from "../components/navbar";
 import Hero from "../components/hero";
 import Projects from "../components/project";
 import Certifications from "../components/Certifications";
-
+import Experience from "./Experience";
 import {
   Briefcase,
   GraduationCap,
@@ -121,6 +121,7 @@ function Home() {
          transition={{ duration: 0.7 }}
        ></motion.div>
         <Hero />
+        <Experience />
         <Projects />
         <Certifications />
        

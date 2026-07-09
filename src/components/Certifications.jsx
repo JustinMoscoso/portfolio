@@ -10,6 +10,7 @@ const CERTIFICATIONS_DATA = [
     logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
     date: "June 2025",
     credential: "https://coursera.org/share/3c285ab15e583648a90bd35fa107b37b",
+    brandColor: "#0056B3", // Coursera Blue
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ const CERTIFICATIONS_DATA = [
     logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
     date: "Jan 2026",
     credential: "https://coursera.org/share/5fb646ae424b0f20c701fb91713aaa87",
+    brandColor: "#0056B3", // Coursera Blue
   },
   {
     id: 3,
@@ -26,6 +28,7 @@ const CERTIFICATIONS_DATA = [
     logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
     date: "Jan 2026",
     credential: "https://coursera.org/share/9fb088ec99503b1db6b71f95324d2b84",
+    brandColor: "#0056B3", // Coursera Blue
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ const CERTIFICATIONS_DATA = [
     logo: "https://unpkg.com/simple-icons@v13/icons/cisco.svg",
     date: "March 2025",
     credential: "https://www.credly.com/badges/785a0a63-6f39-4b7d-833f-7ce47009b471/public_url",
+    brandColor: "#1BA0D7", // Cisco Light Blue / Teal
   },
 ];
 
@@ -60,7 +64,6 @@ function Certifications() {
   const carouselRef = useRef(null);
   const [width, setWidth] = useState(0);
   
-  // Track the raw X coordinate of the drag track
   const dragX = useMotionValue(0);
 
   useEffect(() => {
@@ -69,11 +72,7 @@ function Certifications() {
     }
   }, []);
 
-  // 1. Edge-fade indicators: Fade out the gradient overlay dynamically as the user nears the end
-  // When dragX is 0 (start), opacity is 1. When dragX hits the maximum negative width (end), opacity drops to 0.
   const rightGradientOpacity = useTransform(dragX, [-width, -width + 100, 0], [0, 1, 1]);
-
-  // 2. Custom Progress Bar Indicator calculations
   const progressX = useTransform(dragX, [0, -width], ["0%", "100%"]);
 
   return (
@@ -124,24 +123,22 @@ function Certifications() {
             <motion.div
               drag="x"
               dragConstraints={{ right: 0, left: -width }}
-              style={{ x: dragX }} // Binds motion values
+              style={{ x: dragX }}
               whileDrag={{ scale: 0.98 }}
-              className="flex gap-6 w-max pb-6 pr-24 md:pr-0" // Extra padding on right so last card doesn't get cut off during drag
+              className="flex gap-6 w-max pb-6 pr-24 md:pr-0"
             >
               {CERTIFICATIONS_DATA.map((certificate) => (
                 <motion.div
                   key={certificate.id}
                   variants={cardVariants}
+                  style={{ backgroundColor: certificate.brandColor }}
                   className="
-                    bg-white
-                    border
-                    border-zinc-200
+                    text-white
                     rounded-2xl
                     p-6
                     md:p-7
-                    shadow-sm
-                    hover:shadow-xl
-                    hover:border-indigo-500/50
+                    shadow-md
+                    hover:shadow-2xl
                     transition-all
                     duration-300
                     hover:-translate-y-1.5
@@ -158,12 +155,12 @@ function Certifications() {
                     
                     {/* Logo & Icon Row */}
                     <div className="flex items-center justify-between w-full">
-                      <div className="bg-zinc-100 border border-zinc-200 p-3.5 rounded-xl text-zinc-600 w-fit">
+                      <div className="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl text-white w-fit">
                         <Award size={26} />
                       </div>
                       
                       {/* Issuer Logo Container */}
-                      <div className="h-10 w-10 flex items-center justify-center p-1 bg-zinc-50 rounded-lg border border-zinc-100">
+                      <div className="h-10 w-10 flex items-center justify-center p-1 bg-white rounded-lg shadow-sm">
                         <img 
                           src={certificate.logo} 
                           alt={`${certificate.issuer} logo`} 
@@ -174,15 +171,15 @@ function Certifications() {
                     </div>
 
                     <div className="space-y-2 w-full">
-                      <h3 className="text-xl font-bold text-zinc-900 leading-snug min-h-[64px] line-clamp-3 text-left">
+                      <h3 className="text-xl font-bold text-white leading-snug min-h-[64px] line-clamp-3 text-left">
                         {certificate.title}
                       </h3>
 
-                      <p className="text-zinc-600 font-medium text-sm text-left">
+                      <p className="text-white/80 font-medium text-sm text-left">
                         {certificate.issuer}
                       </p>
 
-                      <div className="flex items-center gap-1.5 pt-1 text-xs font-medium text-zinc-400 justify-start">
+                      <div className="flex items-center gap-1.5 pt-1 text-xs font-medium text-white/60 justify-start">
                         <Calendar size={14} />
                         {certificate.date}
                       </div>
@@ -190,12 +187,13 @@ function Certifications() {
                   </div>
 
                   {/* Bottom Action Area */}
-                  <div className="pt-3 border-t border-zinc-100 mt-auto w-full">
+                  <div className="pt-3 border-t border-white/20 mt-auto w-full">
                     <a
                       href={certificate.credential}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
+                      style={{ '--hover-color': certificate.brandColor }}
                       className="
                         inline-flex
                         items-center
@@ -205,14 +203,14 @@ function Certifications() {
                         py-3
                         rounded-xl
                         border
-                        border-zinc-200
-                        text-zinc-700
+                        border-white/30
+                        text-white
                         text-sm
                         font-semibold
-                        bg-zinc-50
-                        hover:bg-indigo-600
-                        hover:text-white
-                        hover:border-indigo-600
+                        bg-white/10
+                        hover:bg-white
+                        hover:text-[var(--hover-color)]
+                        hover:border-white
                         transition-all
                         duration-300
                       "
@@ -232,7 +230,7 @@ function Certifications() {
           <div className="mt-6 w-32 h-1 bg-zinc-200 rounded-full overflow-hidden relative">
             <motion.div 
               style={{ left: progressX }}
-              className="absolute top-0 bottom-0 w-1/2 bg-indigo-600 rounded-full transition-shadow duration-150"
+              className="absolute top-0 bottom-0 w-1/2 bg-zinc-800 rounded-full transition-shadow duration-150"
             />
           </div>
         )}

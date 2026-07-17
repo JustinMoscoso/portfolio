@@ -1,60 +1,21 @@
 import * as motion from "motion/react-client";
 import Navbar from "../components/navbar";
-import Home from "../pages/Home";
-import {
-  Briefcase,
-  GraduationCap,
-  Shield,
-} from "lucide-react";
+import { Briefcase } from "lucide-react";
+import cityHallImage from "../assets/websitengBinan.png";
 
-import {
-  containerVariants,
-  cardVariants,
-  badgeVariants,
-} from "../utils/animation";
 function Experience() {
   const experiences = [
     {
-      title: "Cybersecurity Intern",
-      company: "ABC Company",
-      date: "2025",
-      icon: <Shield size={22} />,
-      description: [
-        "Performed vulnerability assessments.",
-        "Created penetration testing reports.",
-        "Monitored network traffic.",
-      ],
-      skills: ["Nmap", "Burp Suite", "Wireshark", "Linux"],
-    },
-    {
       title: "Full Stack Developer",
-      company: "Freelance",
+      company: "City Hall of Biñan",
       date: "2024 - Present",
       icon: <Briefcase size={22} />,
       description: [
-        "Developed management systems.",
-        "Built REST APIs.",
-        "Designed responsive interfaces.",
+        "Built government service portals with CodeIgniter 4 and Bootstrap.",
+        "Integrated backend workflows, REST APIs, and MySQL databases.",
+        "Delivered responsive, accessible UI for city hall staff and citizens.",
       ],
-      skills: [
-        "React",
-        "PHP",
-        "CodeIgniter",
-        "MySQL",
-        "Supabase",
-      ],
-    },
-    {
-      title: "BS Information Technology",
-      company: "University",
-      date: "2022 - Present",
-      icon: <GraduationCap size={22} />,
-      description: [
-        "Focused on Software Development.",
-        "Studied Networking.",
-        "Learning Cybersecurity.",
-      ],
-      skills: ["Java", "Python", "C#", "Assembly"],
+      skills: ["CodeIgniter 4", "Bootstrap", "PHP", "MySQL", "HTML/CSS"],
     },
   ];
 
@@ -90,57 +51,65 @@ function Experience() {
           {experiences.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-3xl shadow-sm border border-gray-200 p-8 hover:shadow-xl transition duration-300"
+              className="relative overflow-hidden rounded-3xl shadow-sm border border-gray-200 transition duration-300 hover:shadow-xl"
+              style={{
+                backgroundImage: `url(${cityHallImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
             >
-              <div className="flex justify-between items-start flex-wrap gap-4">
+              <div className="absolute inset-0 bg-slate-950/45" />
+              <div className="relative p-8">
+                <div className="flex justify-between items-start flex-wrap gap-4">
 
-                <div className="flex items-start gap-5">
+                  <div className="flex items-start gap-5">
 
-                  <div className="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center">
-                    {item.icon}
+                    <div className="w-14 h-14 rounded-2xl bg-white/20 text-white flex items-center justify-center">
+                      {item.icon}
+                    </div>
+
+                    <div>
+
+                      <h3 className="text-2xl font-bold text-white">
+                        {item.title}
+                      </h3>
+
+                      <p className="text-slate-200">
+                        {item.company}
+                      </p>
+
+                    </div>
+
                   </div>
 
-                  <div>
-
-                    <h3 className="text-2xl font-bold text-gray-900">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-gray-500">
-                      {item.company}
-                    </p>
-
-                  </div>
+                  <span className="text-sm bg-white/20 px-4 py-2 rounded-full text-white">
+                    {item.date}
+                  </span>
 
                 </div>
 
-                <span className="text-sm bg-gray-100 px-4 py-2 rounded-full text-gray-600">
-                  {item.date}
-                </span>
+                <ul className="mt-8 space-y-3">
+                  {item.description.map((text, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 text-slate-100"
+                    >
+                      <span className="text-blue-300 mt-1">•</span>
+                      {text}
+                    </li>
+                  ))}
+                </ul>
 
-              </div>
-
-              <ul className="mt-8 space-y-3">
-                {item.description.map((text, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-3 text-gray-600"
-                  >
-                    <span className="text-blue-600 mt-1">•</span>
-                    {text}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="flex flex-wrap gap-3 mt-8">
-                {item.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium"
-                  >
-                    {skill}
-                  </span>
-                ))}
+                <div className="flex flex-wrap gap-3 mt-8">
+                  {item.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-4 py-2 bg-white/20 text-white rounded-full text-sm font-medium"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}

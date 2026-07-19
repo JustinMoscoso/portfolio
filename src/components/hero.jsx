@@ -92,7 +92,7 @@ function Hero() {
         {/* --- LAYER 2: PORTRAIT HEADSHOT --- */}
         <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-20 mt-12 md:mt-0">
           <div className="w-72 h-72 md:w-[420px] md:h-[420px] relative flex items-end justify-center">
-            <div className="absolute inset-0 bg-neutral-900/40 rounded-full border border-neutral-800/50 backdrop-blur-sm -z-10 shadow-2xl" />
+            <div className="absolute inset-0 bg-neutral-900/20 rounded-full border border-neutral-800/50 -z-10 shadow-2xl" />
             <img
               src={profileImg}
               alt="Justin Portfolio Cutout"
@@ -102,7 +102,7 @@ function Hero() {
         </div>
 
         {/* --- LAYER 3: DUAL-WING CONTENT GRID --- */}
-        <div className="grid md:grid-cols-2 gap-y-36 gap-x-12 w-full mt-auto relative z-30 mb-16 lg:mb-24">
+        <div id="about" className="grid md:grid-cols-2 gap-y-36 gap-x-12 w-full mt-auto relative z-30 mb-16 lg:mb-24">
           {/* Bottom Left Content Block */}
           <div className="flex flex-col justify-end max-w-sm space-y-6 md:pb-6">
             <div className="flex gap-3 text-lg">
@@ -130,46 +130,21 @@ function Hero() {
         </div>
       </div>
 
-      {/* --- AUTOMATIC INFINITE CAROUSEL (Scrolling Right) --- */}
-      <div className="absolute bottom-6 left-0 w-full z-40 hidden lg:block overflow-hidden py-4 select-none">
-        {/* Soft edge masking gradients to blend boundaries beautifully */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-neutral-950 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-neutral-950 to-transparent z-10 pointer-events-none" />
-
-        {/* Endless scrolling track running left-to-right via negative translation values */}
-        <motion.div
-          className="flex gap-4 w-max px-2"
-          animate={{ x: ["-50%", "0%"] }}
-          transition={{
-            ease: "linear",
-            duration: 25,
-            repeat: Infinity,
-          }}
-        >
-          {INFINITE_SKILLS.map((skill, index) => (
-            <motion.div
-              key={`${skill.name}-${index}`}
-              whileHover={{ 
-                scale: 1.08, 
-                y: -4,
-                borderColor: "rgba(168, 85, 247, 0.4)",
-                backgroundColor: "rgba(10, 10, 10, 0.95)"
-              }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="flex items-center gap-3 bg-neutral-900/60 border border-neutral-800/80 backdrop-blur-md px-5 py-2.5 rounded-xl text-neutral-300 shadow-xl cursor-pointer min-w-[140px]"
-            >
-              {/* Scaled up text-2xl Icon with a continuous subtle hover/float pulse */}
-              <motion.span 
-                className="text-2xl"
-                whileHover={{ rotate: [0, -7, 7, 0] }}
-                transition={{ duration: 0.4 }}
+      {/* --- SKILLS GRID --- */}
+      <div id="skills" className="absolute bottom-6 left-0 w-full z-40 hidden lg:block overflow-hidden py-4 select-none">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            {SKILLS_DATA.map((skill) => (
+              <div
+                key={skill.name}
+                className="flex items-center gap-3 bg-neutral-900/95 border border-neutral-800/90 px-5 py-3 rounded-xl text-neutral-100 shadow-lg"
               >
-                {skill.icon}
-              </motion.span>
-              <span className="font-semibold text-xs tracking-wide">{skill.name}</span>
-            </motion.div>
-          ))}
-        </motion.div>
+                <span className="text-2xl">{skill.icon}</span>
+                <span className="font-semibold text-sm tracking-wide">{skill.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

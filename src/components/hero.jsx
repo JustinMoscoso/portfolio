@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaGithub, FaLinkedin, FaCode, FaTerminal, FaDatabase, FaLaptopCode, FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
 import profileImg from "../assets/profile-transparent.png";
+import hoverProfileImg from "../assets/boast.jpg";
 
 const SKILLS_DATA = [
   { name: "React", icon: <FaLaptopCode className="text-sky-400" /> },
@@ -91,12 +92,17 @@ function Hero() {
 
         {/* --- LAYER 2: PORTRAIT HEADSHOT --- */}
         <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-20 mt-12 md:mt-0">
-          <div className="w-72 h-72 md:w-[420px] md:h-[420px] relative flex items-end justify-center">
+          <div className="w-72 h-72 md:w-[420px] md:h-[420px] relative flex items-end justify-center group">
             <div className="absolute inset-0 bg-neutral-900/20 rounded-full border border-neutral-800/50 -z-10 shadow-2xl" />
             <img
               src={profileImg}
               alt="Justin Portfolio Cutout"
-              className="w-full h-full object-cover object-bottom pointer-events-auto filter drop-shadow-[0_25px_25px_rgba(0,0,0,0.9)]"
+              className="w-full h-full object-cover object-bottom pointer-events-auto filter drop-shadow-[0_25px_25px_rgba(0,0,0,0.9)] transition duration-500 group-hover:opacity-0"
+            />
+            <img
+              src={hoverProfileImg}
+              alt="Alternate portrait of Justin"
+              className="absolute inset-0 w-full h-full object-cover object-center pointer-events-auto opacity-0 transition duration-500 group-hover:opacity-100"
             />
           </div>
         </div>

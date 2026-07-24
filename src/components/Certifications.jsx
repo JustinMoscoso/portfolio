@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Award, ExternalLink, Calendar } from "lucide-react";
+import { Award, ExternalLink, Calendar, X } from "lucide-react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
 const CERTIFICATIONS_DATA = [
@@ -14,30 +14,53 @@ const CERTIFICATIONS_DATA = [
   },
   {
     id: 2,
+    title: "Foundations of Project Management",
+    issuer: "Google",
+    logo: "https://unpkg.com/simple-icons@v13/icons/google.svg",
+    date: "July 2026",
+    credential: "/certificates/Justin D. Moscoso.pdf",
+    isPDF: true,
+    brandColor: "#4285F4", // Google Blue
+  },
+  {
+    id: 3,
     title: "Virtualization for Everyone",
     issuer: "Coursera",
     logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
     date: "Jan 2026",
-    credential: "https://coursera.org/share/5fb646ae424b0f20c701fb91713aaa87",
-    brandColor: "#0056B3", // Coursera Blue
-  },
-  {
-    id: 3,
-    title: "Advanced Networking, Virtualization, and Security",
-    issuer: "Coursera",
-    logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
-    date: "Jan 2026",
-    credential: "https://coursera.org/share/9fb088ec99503b1db6b71f95324d2b84",
+    credential: "/certificates/Coursera 9JJ65NNOLKMA.pdf",
+    isPDF: true,
     brandColor: "#0056B3", // Coursera Blue
   },
   {
     id: 4,
+    title: "Advanced Networking, Virtualization, and Security",
+    issuer: "Coursera",
+    logo: "https://unpkg.com/simple-icons@v13/icons/coursera.svg",
+    date: "Jan 2026",
+    credential: "/certificates/Coursera LDVLK6XA2VCO.pdf",
+    isPDF: true,
+    brandColor: "#0056B3", // Coursera Blue
+  },
+  {
+    id: 5,
     title: "Ethical Hacker",
     issuer: "Cisco",
     logo: "https://unpkg.com/simple-icons@v13/icons/cisco.svg",
     date: "March 2025",
-    credential: "https://www.credly.com/badges/785a0a63-6f39-4b7d-833f-7ce47009b471/public_url",
+    credential: "/certificates/HitC-CoA_JDMoscoso.pdf",
+    isPDF: true,
     brandColor: "#1BA0D7", // Cisco Light Blue / Teal
+  },
+  {
+    id: 6,
+    title: "Beyond the Breach: Leadership and Cybersecurity in the Age of Digital Transformation",
+    issuer: "Mapúa Malayan Colleges",
+    logo: "https://unpkg.com/simple-icons@v13/icons/readme.svg",
+    date: "June 2026",
+    credential: "/certificates/BTB-CoA_Moscoso, Justin D. (1).pdf",
+    isPDF: true,
+    brandColor: "#6B2B6B", // Purple
   },
 ];
 
@@ -63,6 +86,7 @@ const cardVariants = {
 function Certifications() {
   const carouselRef = useRef(null);
   const [width, setWidth] = useState(0);
+  const [selectedPDF, setSelectedPDF] = useState(null);
   
   const dragX = useMotionValue(0);
 
@@ -74,6 +98,14 @@ function Certifications() {
 
   const rightGradientOpacity = useTransform(dragX, [-width, -width + 100, 0], [0, 1, 1]);
   const progressX = useTransform(dragX, [0, -width], ["0%", "100%"]);
+
+  const handleViewCertificate = (certificate) => {
+    if (certificate.isPDF) {
+      setSelectedPDF(certificate);
+    } else {
+      window.open(certificate.credential, "_blank", "noopener,noreferrer");
+    }
+  };
 
   return (
     <section 
@@ -188,11 +220,8 @@ function Certifications() {
 
                   {/* Bottom Action Area */}
                   <div className="pt-3 border-t border-white/20 mt-auto w-full">
-                    <a
-                      href={certificate.credential}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
+                    <button
+                      onClick={() => handleViewCertificate(certificate)}
                       style={{ '--hover-color': certificate.brandColor }}
                       className="
                         inline-flex
@@ -213,11 +242,12 @@ function Certifications() {
                         hover:border-white
                         transition-all
                         duration-300
+                        cursor-pointer
                       "
                     >
                       View Certificate
                       <ExternalLink size={16} />
-                    </a>
+                    </button>
                   </div>
                 </motion.div>
               ))}
@@ -236,6 +266,62 @@ function Certifications() {
         )}
 
       </div>
+
+      {/* PDF Preview Modal */}
+      {selectedPDF && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedPDF(null)}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-zinc-200">
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-zinc-900">{selectedPDF.title}</h3>
+                <p className="text-sm text-zinc-600 mt-1">{selectedPDF.issuer} • {selectedPDF.date}</p>
+              </div>
+              <button 
+                onClick={() => setSelectedPDF(null)}
+                className="p-2 hover:bg-zinc-100 rounded-lg transition-colors"
+              >
+                <X size={24} className="text-zinc-600" />
+              </button>
+            </div>
+
+            {/* PDF Viewer */}
+            <div className="flex-1 overflow-auto bg-zinc-50">
+              <iframe 
+                src={`${selectedPDF.credential}#toolbar=1`}
+                className="w-full h-full"
+                title={selectedPDF.title}
+              />
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex gap-3 p-6 border-t border-zinc-200 bg-white">
+              <button 
+                onClick={() => setSelectedPDF(null)}
+                className="px-4 py-2 rounded-lg border border-zinc-300 text-zinc-700 font-medium hover:bg-zinc-50 transition-colors"
+              >
+                Close
+              </button>
+              <a 
+                href={selectedPDF.credential}
+                download
+                className="px-4 py-2 rounded-lg bg-zinc-900 text-white font-medium hover:bg-zinc-800 transition-colors"
+              >
+                Download PDF
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 }
